@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 | The Masterpiece</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 | Royal Edition</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Monsieur+La+Doulaise&family=Italiana&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Italiana&display=swap" rel="stylesheet">
     
     <style>
         /* --- CORE SETTINGS --- */
@@ -13,13 +13,14 @@
         body {
             background-color: #000;
             height: 100vh;
-            overflow: hidden;
+            height: 100dvh; 
+            overflow: hidden; 
             font-family: 'Cinzel', serif;
             display: flex; justify-content: center; align-items: center;
             color: #fff;
         }
 
-        /* --- TEXTURE OVERLAY (Film Grain) --- */
+        /* --- TEXTURE OVERLAY --- */
         .noise {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 900; opacity: 0.06;
@@ -36,10 +37,12 @@
         .start-btn {
             background: rgba(255,255,255,0.05); color: #d4af37;
             border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 25px 80px;
-            font-family: 'Cinzel', serif; font-size: 1.1rem;
-            letter-spacing: 8px; text-transform: uppercase; cursor: pointer;
+            padding: 15px 40px;
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            font-family: 'Cinzel', serif; 
+            letter-spacing: 4px; text-transform: uppercase; cursor: pointer;
             transition: 0.5s; position: relative; overflow: hidden;
+            width: 80%; max-width: 300px;
         }
         .start-btn:hover { background: #d4af37; color: #000; box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); }
 
@@ -53,7 +56,7 @@
             filter: brightness(0.4) contrast(1.1) sepia(0.2);
         }
 
-        /* --- SCENE 1: 2025 FAREWELL --- */
+        /* --- SCENE 1: 2025 --- */
         #scene-2025 {
             position: absolute; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
@@ -61,20 +64,17 @@
             transition: opacity 2s ease;
         }
         .text-2025 {
-            font-size: 8rem; color: #555; letter-spacing: 15px;
+            font-size: 20vw; color: #555; letter-spacing: 5px;
             font-weight: 700; opacity: 0.8;
         }
         .glitch-effect { animation: glitch 0.2s infinite; }
         @keyframes glitch {
-            0% { transform: translate(0,0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(3px, -3px); }
-            60% { transform: translate(-3px, 0); }
-            80% { transform: translate(3px, 0); }
-            100% { transform: translate(0,0); }
+            0% { transform: translate(0,0); } 20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); } 60% { transform: translate(-3px, 0); }
+            80% { transform: translate(3px, 0); } 100% { transform: translate(0,0); }
         }
 
-        /* --- SCENE 2: ANTIQUE CLOCK --- */
+        /* --- SCENE 2: ROYAL CLOCK --- */
         #scene-clock {
             position: absolute; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
@@ -82,11 +82,23 @@
             transition: opacity 2s ease;
         }
         .clock-wrapper {
-            width: 500px; height: 500px;
-            transform: scale(0.6); /* Start smaller for dramatic zoom */
+            width: 70vw; height: 70vw; /* Slightly larger for detail */
+            max-width: 380px; max-height: 380px;
+            transform: scale(0.6); 
             transition: transform 15s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .clock-svg { overflow: visible; filter: drop-shadow(0 0 40px rgba(0,0,0,0.9)); }
+        .clock-svg { 
+            width: 100%; height: 100%;
+            overflow: visible; 
+            filter: drop-shadow(0 0 30px rgba(0,0,0,1));
+            animation: pulse-gold 4s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-gold {
+            0% { filter: drop-shadow(0 0 20px rgba(212,175,55,0.1)); }
+            50% { filter: drop-shadow(0 0 35px rgba(212,175,55,0.4)); }
+            100% { filter: drop-shadow(0 0 20px rgba(212,175,55,0.1)); }
+        }
 
         /* --- SCENE 3: FLASH --- */
         #flash-overlay {
@@ -94,14 +106,23 @@
             background: #fff; z-index: 100; opacity: 0; pointer-events: none;
         }
 
-        /* --- SCENE 4: 2026 FINALE --- */
+        /* --- SCENE 4: 2026 FINALE (SCROLLABLE) --- */
         #scene-finale {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 50; opacity: 0; pointer-events: none;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch;
+            
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: flex-start;
+            
             transition: opacity 3s ease;
+            padding: 60px 20px 100px 20px;
         }
+        #scene-finale::-webkit-scrollbar { width: 6px; }
+        #scene-finale::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
         /* Typography */
         .gold-text {
@@ -111,41 +132,80 @@
         }
 
         .welcome-label {
-            font-family: 'Italiana', serif; font-size: 1.5rem; letter-spacing: 12px;
+            font-family: 'Italiana', serif; 
+            font-size: clamp(1rem, 4vw, 1.5rem); 
+            letter-spacing: 8px;
             color: #ccc; margin-bottom: 5px; opacity: 0; transform: translateY(20px);
         }
 
         .year-giant {
-            font-size: 13vw; line-height: 1; margin: 0;
+            font-size: 25vw; line-height: 1; margin: 0;
             opacity: 0; transform: scale(1.1); filter: blur(10px);
         }
 
         .hny-text {
-            font-size: 3vw; letter-spacing: 15px; margin-top: 10px;
+            font-size: 5vw; letter-spacing: 5px; margin-top: 10px;
+            text-align: center;
             opacity: 0; transform: translateY(20px);
         }
 
-        /* Handwritten Wishes */
+        /* Wishes */
         .wishes-container {
-            margin-top: 50px; text-align: center;
-            min-height: 120px; /* Space reserved */
+            margin-top: 40px; text-align: center;
+            width: 100%;
+            padding-bottom: 10px;
         }
         .handwritten-line {
-            font-family: 'Monsieur La Doulaise', cursive;
-            font-size: 3.5rem; color: #fbe7a1;
-            line-height: 1.2; opacity: 0; transform: translateY(10px);
+            font-family: 'Great Vibes', cursive; 
+            font-size: clamp(2rem, 8vw, 2.8rem); 
+            color: #fbe7a1;
+            line-height: 1.4; opacity: 0; transform: translateY(15px);
             text-shadow: 0 0 10px rgba(251, 231, 161, 0.3);
+            margin-bottom: 15px; 
         }
 
-        /* Signature */
+        /* Footer */
         .signature-area {
-            margin-top: 40px; text-align: center; opacity: 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px; width: 200px;
+            margin-top: 50px; text-align: center; opacity: 0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 30px; 
+            width: 90%;
+            max-width: 400px;
+            margin-bottom: 80px; 
         }
-        .sig-label { font-size: 0.6rem; letter-spacing: 4px; color: #666; text-transform: uppercase; }
-        .sig-name {
-            font-family: 'Monsieur La Doulaise', cursive; font-size: 3rem; color: #cfc09f;
+        
+        .sender-block { margin-bottom: 30px; }
+        .from-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem; letter-spacing: 3px; color: #888;
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+        .sender-name {
+            font-family: 'Cinzel', serif; 
+            font-size: 1.8rem; 
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .dev-footer {
+            opacity: 0.7;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dev-text {
+            font-size: 0.65rem; color: #555; letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 5px;
+        }
+        .dev-link {
+            color: #777; text-decoration: none; font-weight: 600; transition: 0.3s;
+        }
+        .dev-link:hover { color: #d4af37; }
+        
+        .dm-cta {
+            font-size: 0.6rem; color: #d4af37; font-weight: 600;
+            letter-spacing: 1px; margin-top: 8px; cursor: pointer;
+            animation: pulseText 2s infinite ease-in-out;
         }
 
         /* Animations */
@@ -154,6 +214,11 @@
         
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         @keyframes blurReveal { to { opacity: 1; transform: scale(1); filter: blur(0); } }
+        @keyframes pulseText { 
+            0% { opacity: 0.5; } 
+            50% { opacity: 1; text-shadow: 0 0 5px rgba(212,175,55,0.5); } 
+            100% { opacity: 0.5; } 
+        }
 
     </style>
 </head>
@@ -181,6 +246,16 @@
                 <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="3" result="noise" seed="1"/>
                 <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="displacement-map"/>
             </filter>
+            
+            <linearGradient id="royalGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#fceabb;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#f8b500;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#fceabb;stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="darkMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#434343;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+            </linearGradient>
         </defs>
     </svg>
 
@@ -191,27 +266,26 @@
     <div id="scene-clock">
         <div class="clock-wrapper" id="clock-wrapper">
             <svg class="clock-svg" viewBox="0 0 200 200">
-                <defs>
-                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#fbe7a1;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <circle cx="100" cy="100" r="95" fill="rgba(0,0,0,0.8)" stroke="url(#goldGrad)" stroke-width="2"/>
-                <circle cx="100" cy="100" r="88" fill="none" stroke="#666" stroke-width="0.5"/>
+                <circle cx="100" cy="100" r="98" fill="none" stroke="url(#royalGold)" stroke-width="2"/>
                 
-                <g fill="#d4af37" font-family="Cinzel" font-size="14" text-anchor="middle" font-weight="bold">
-                    <text x="100" y="28">XII</text>
-                    <text x="172" y="105">III</text>
-                    <text x="100" y="182">VI</text>
-                    <text x="28" y="105">IX</text>
+                <circle cx="100" cy="100" r="92" fill="none" stroke="#d4af37" stroke-width="6" stroke-dasharray="1,4" opacity="0.6"/>
+                
+                <circle cx="100" cy="100" r="88" fill="rgba(0,0,0,0.4)" stroke="url(#royalGold)" stroke-width="1"/>
+                
+                <g fill="url(#royalGold)" font-family="Cinzel" font-size="18" text-anchor="middle" font-weight="900">
+                    <text x="100" y="26">XII</text>
+                    <text x="176" y="106">III</text>
+                    <text x="100" y="186">VI</text>
+                    <text x="24" y="106">IX</text>
                 </g>
                 
+                <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(212,175,55,0.3)" stroke-width="1"/>
+
                 <g id="clock-hands" transform-origin="100 100">
-                    <line x1="100" y1="100" x2="100" y2="40" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="100" y1="100" x2="100" y2="25" stroke="url(#goldGrad)" stroke-width="2"/>
+                    <path d="M98,100 L95,60 L100,45 L105,60 L102,100 Z" fill="url(#royalGold)" />
+                    <path d="M99,100 L97,35 L100,20 L103,35 L101,100 Z" fill="#fff" />
+                    <circle cx="100" cy="100" r="4" fill="#d4af37" stroke="#000" stroke-width="1"/>
                 </g>
-                <circle cx="100" cy="100" r="3" fill="#fff"/>
             </svg>
         </div>
     </div>
@@ -224,13 +298,26 @@
         <div class="hny-text gold-text" id="t-hny">HAPPY NEW YEAR</div>
         
         <div class="wishes-container">
-            <div class="handwritten-line" id="wish-1">May your dreams take flight</div>
-            <div class="handwritten-line" id="wish-2">and your soul find peace.</div>
+            <div class="handwritten-line">May your dreams take flight,</div>
+            <div class="handwritten-line">And your soul find peace.</div>
+            <div class="handwritten-line">May success be your shadow,</div>
+            <div class="handwritten-line">And joy fill every release.</div>
+            <div class="handwritten-line">Let every moment count,</div>
+            <div class="handwritten-line">For a future bright and sweet.</div>
         </div>
 
-        <div class="signature-area" id="sig">
-            <div class="sig-label">Designed By</div>
-            <div class="sig-name">Himanshu</div>
+        <div class="signature-area" id="sig-area">
+            <div class="sender-block">
+                <div class="from-label">With Love</div>
+                <div class="sender-name">Naman Gupta</div>
+            </div>
+            
+            <div class="dev-footer">
+                <div class="dev-text">
+                    Developed by <a href="https://instagram.com/digital.surprises" target="_blank" class="dev-link">@digital.surprises</a>
+                </div>
+                <div class="dm-cta">DM for paid customization</div>
+            </div>
         </div>
     </div>
 
@@ -250,13 +337,11 @@
             dispMap: document.getElementById('displacement-map'),
             flash: document.getElementById('flash-overlay'),
             finaleScene: document.getElementById('scene-finale'),
-            // Finale Texts
             tWel: document.getElementById('t-wel'),
             tYear: document.getElementById('t-year'),
             tHny: document.getElementById('t-hny'),
-            wish1: document.getElementById('wish-1'),
-            wish2: document.getElementById('wish-2'),
-            sig: document.getElementById('sig')
+            wishes: document.querySelectorAll('.handwritten-line'),
+            sigArea: document.getElementById('sig-area')
         };
 
         function startExperience() {
@@ -270,47 +355,38 @@
         }
 
         async function runSequence() {
-            // STEP 1: 2025 GLITCH & FADE (3 Seconds)
+            // STEP 1: 2025
             await wait(500);
             els.text2025.classList.add('glitch-effect'); 
             await wait(2500);
             
-            // Fade out 2025
             els.scene2025.style.opacity = '0';
             setTimeout(() => els.scene2025.style.display = 'none', 2000);
 
-            // STEP 2: VIDEO & CLOCK ATMOSPHERE (Extended Duration)
+            // STEP 2: VIDEO & CLOCK
             els.videoLayer.style.opacity = '1';
-            
             await wait(1500);
             
-            // Clock appears slowly
             els.clockScene.style.opacity = '1';
-            // Start the long cinematic zoom
-            els.clockWrapper.style.transform = 'scale(1.3)';
+            els.clockWrapper.style.transform = 'scale(1.1)'; 
 
-            // Melt Logic (Slow Distortion)
             let meltVal = 0;
             const meltInterval = setInterval(() => {
-                meltVal += 0.15; // Slow melt
+                meltVal += 0.15;
                 els.dispMap.setAttribute('scale', meltVal);
             }, 100);
 
-            // Let the user enjoy the video and melting clock for 6 seconds
             await wait(6000);
 
-            // STEP 3: THE SPIN (Build Up)
+            // STEP 3: SPIN
             let rotation = 0;
             let speed = 2;
             
-            // Adjusted Loop for Longer Build Up
             const spinLoop = setInterval(() => {
-                // Slower acceleration factor (1.02 instead of 1.05)
                 speed *= 1.02; 
                 rotation += speed;
                 els.clockHands.style.transform = `rotate(${rotation}deg)`;
                 
-                // Stop when it gets crazy fast
                 if (speed > 90) {
                     clearInterval(spinLoop);
                     clearInterval(meltInterval);
@@ -320,38 +396,38 @@
         }
 
         async function triggerFinale() {
-            // STEP 4: THE DROP (Flash)
+            // STEP 4: FLASH
             els.flash.style.opacity = '1';
             els.clockScene.style.display = 'none'; 
             
             await wait(200);
 
-            // STEP 5: THE REVEAL
+            // STEP 5: REVEAL
             els.flash.style.transition = "opacity 3s ease";
             els.flash.style.opacity = '0';
             
             els.finaleScene.style.opacity = '1';
-            els.finaleScene.style.pointerEvents = 'auto';
+            els.finaleScene.style.pointerEvents = 'auto'; 
 
             await wait(500);
 
-            // TEXT ANIMATIONS (Staggered)
-            els.tWel.classList.add('fade-up-slow');   // Welcome
+            // TITLES
+            els.tWel.classList.add('fade-up-slow');   
             await wait(500);
-            els.tYear.classList.add('blur-reveal');   // 2026
+            els.tYear.classList.add('blur-reveal');   
             await wait(800);
-            els.tHny.classList.add('fade-up-slow');   // Happy New Year
+            els.tHny.classList.add('fade-up-slow');   
             
-            // HANDWRITTEN WISHES (Delayed)
-            await wait(1500);
-            els.wish1.classList.add('fade-up-slow');
+            // WISHES LOOP
             await wait(1000);
-            els.wish2.classList.add('fade-up-slow');
+            for (let i = 0; i < els.wishes.length; i++) {
+                els.wishes[i].classList.add('fade-up-slow');
+                await wait(800);
+            }
 
-            // SIGNATURE (Last)
-            await wait(2000);
-            els.sig.style.transition = "opacity 2s ease";
-            els.sig.style.opacity = "1";
+            // SIGNATURE AREA
+            await wait(1000);
+            els.sigArea.classList.add('fade-up-slow');
         }
     </script>
 </body>
